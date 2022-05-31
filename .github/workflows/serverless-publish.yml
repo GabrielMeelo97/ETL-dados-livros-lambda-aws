@@ -9,13 +9,17 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest     
-      - run: pip install poetry
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
       - run: poetry install
       - run: curl -sL https://deb.nodesource.com/setup_12.x | bash -
       - run: apt-get install -y nodejs
       - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
       - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
       - run: sls deploy
-
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

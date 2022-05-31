@@ -9,17 +9,24 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest     
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
-      - run: poetry install
-      - run: curl -sL https://deb.nodesource.com/setup_12.x | bash -
-      - run: apt-get install -y nodejs
-      - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
-      - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
-      - run: sls deploy
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: pip install poetry
+    - run: poetry install
+    - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
+    - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
+    - run: npm ci
+    - name: serverless deploy
+      uses: serverless/github-action@v3.1
+      with:
+        args: deploy
   env:
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

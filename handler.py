@@ -104,9 +104,7 @@ def save_bucket(df_livros):
     s3.put_object(Key=f'bronze/landing-date={now}/livros.json', Body=tempfile,Bucket = 'livros-scraping')
     return 'Arquivo inserido'
 
-
-
-def main():
+def main(event,context):
     soup = request_inicial()
     categorias_full = buscar_categorias(soup)
     lista_categorias = acertar_categorias(categorias_full)
@@ -114,6 +112,3 @@ def main():
     df_livros = cria_dataframe(resutaldo_coleta)
     save_bucket(df_livros)
     return df_livros
-
-main()
-

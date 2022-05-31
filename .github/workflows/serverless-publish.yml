@@ -20,11 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}          
       - run: pip install poetry
       - run: poetry install
-      - run: npm ci
-      - name: serverless deploy
-        uses: serverless/github-action@master
-        with:
-          args: deploy
-        env:
+      - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
+      - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
+      - run: sls deploy
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

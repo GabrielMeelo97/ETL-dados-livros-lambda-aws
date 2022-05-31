@@ -8,18 +8,11 @@ on:
 jobs:
   deploy:
     name: deploy
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}          
+    runs-on: ubuntu-latest     
       - run: pip install poetry
       - run: poetry install
+      - run: curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - run: apt-get install -y nodejs
       - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
       - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
       - run: sls deploy

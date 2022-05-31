@@ -20,8 +20,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: pip install poetry
     - run: poetry install
-    #- run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
-    #- run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
+    - run: npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
+    - run: npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
     - run: npm ci
     - name: serverless deploy
       uses: serverless/github-action@v3.1

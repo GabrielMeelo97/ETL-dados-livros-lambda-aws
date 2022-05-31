@@ -23,6 +23,9 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.8
+  stage: master
+  environment:
+    STAGE: ${opt:stage}
 
 functions:
   hello:

@@ -26,6 +26,11 @@ provider:
   stage: master
   environment:
     STAGE: ${opt:stage}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource: arn:aws:s3:::livros-scraping/*
 
 
     
@@ -33,11 +38,6 @@ functions:
   coleta-livros:
     handler: handler.main
     timeout: 900
-    iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:PutObject"
-      Resource: arn:aws:s3:::livros-scraping
 
 plugins:
   - serverless-python-requirements

@@ -32,7 +32,7 @@ provider:
 functions:
   coleta-livros:
     handler: handler.main
-    timeout: 9000
+    timeout: 900
 
 plugins:
   - serverless-python-requirements

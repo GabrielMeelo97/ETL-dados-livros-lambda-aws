@@ -31,7 +31,6 @@ def buscar_categorias(soup):
 def acertar_categorias(lista):
     categorias = []
     for i in lista:
-        print(i)
         if len(i) > 27 and i[:8] == 'category':
             categorias.append(i)
     return categorias
@@ -59,7 +58,6 @@ def request_api(url, categoria):
     dados = []
     for livro in livros.find_all('li', {'class': 'col-xs-6 col-sm-4 col-md-3 col-lg-3'}):
         nome_produto = livro.find('h3').find('a').get('title')
-        print(nome_produto)
         preco = livro.find('p', {'class': 'price_color'}).text[2:]
         estoque = livro.find('p', {'class': 'instock availability'}).text.strip()
         pontuacao = str(livro.find('article', {'class': 'product_pod'}).find('p'))[:30].split('"')[1].replace('star-rating ', '')
@@ -69,8 +67,8 @@ def request_api(url, categoria):
 
 def coleta_dados(categorias):
     dados_livros = []
-    logger.info("Coletando os livros dentro das categorias")
     for categoria in categorias:
+        logger.info("Coletando os livros da categoria {categoria}")
         url = 'https://books.toscrape.com/catalogue/' + categoria
         url_validada, paginas = acerta_url(url)
         cagoteria_nome = categoria[15:].split('_')[0]

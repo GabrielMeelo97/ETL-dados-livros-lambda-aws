@@ -102,22 +102,15 @@ def save_bucket(df_livros):
     now = datetime.now().strftime("%Y-%m-%d")
     s3 = boto3.client("s3")
     logger.info("Salvando json no bucket..")
-    s3.put_object(Key=f'bronze/landing-date={now}/livros.json', Body=tempfile, Bucket='livros-scraping')
+    s3.put_object(Key=f'bronze/landing-date={now}/livros.json', Body=tempfile.name, Bucket='livros-scraping')
     return 'Arquivo inserido'
 
 
 def main(event, context):
-    print('iniciando funcao 1')
     soup = request_inicial()
-    print('iniciando funcao 2')
     categorias_full = buscar_categorias(soup)
-    print('iniciando funcao 3')
     lista_categorias = acertar_categorias(categorias_full)
-    print('iniciando funcao 4')
     resutaldo_coleta = coleta_dados(lista_categorias)
-    print('iniciando funcao 4')
-    print(resutaldo_coleta)
-    print('iniciando funcao 5')
     df_livros = cria_dataframe(resutaldo_coleta)
     print('iniciando funcao 6')
     save_bucket(df_livros)

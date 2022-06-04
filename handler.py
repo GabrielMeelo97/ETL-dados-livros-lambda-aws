@@ -114,3 +114,13 @@ def main(event, context):
     df_livros = cria_dataframe(resutaldo_coleta)
     save_bucket(df_livros)
     return df_livros
+
+
+    soup = request_inicial()
+    categorias_full = buscar_categorias(soup)
+    lista_categorias = acertar_categorias(categorias_full)
+    resutaldo_coleta = coleta_dados(lista_categorias)
+
+
+
+    

@@ -86,6 +86,7 @@ def coleta_dados(categorias):
 def cria_dataframe(dados):
     logger.info("Concatenando coleta das categorias e paginas")
     for i, k in enumerate(dados):
+        print(k)
         if i == 0:
             df_livros = pd.DataFrame(k, columns=['categoria', 'nome', 'preco', 'status_estoque', 'estrelas'])
         else:
@@ -114,6 +115,7 @@ def main(event, context):
     print('iniciando funcao 4')
     resutaldo_coleta = coleta_dados(lista_categorias)
     print('iniciando funcao 4')
+    print(resutaldo_coleta)
     df_livros = cria_dataframe(resutaldo_coleta)
     save_bucket(df_livros)
     return df_livros

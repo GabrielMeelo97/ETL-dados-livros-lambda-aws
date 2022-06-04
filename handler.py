@@ -98,7 +98,7 @@ def cria_dataframe(dados):
 def save_bucket(df_livros):
     with NamedTemporaryFile() as tmp:
         ##df_livros.to_json(tmp, orient='records')
-        json_fila = df_livros.to_json()
+        json_fila = df_livros.to_json(orient='records')
         tmp.write(json_fila)
         print('cheguei aqui aqui')
         now = datetime.now().strftime("%Y-%m-%d")

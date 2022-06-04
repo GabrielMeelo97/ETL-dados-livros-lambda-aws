@@ -98,6 +98,7 @@ def cria_dataframe(dados):
 def save_bucket(df_livros):
     tempfile = NamedTemporaryFile(delete=False)
     df_livros.to_json(tempfile, orient='records')
+    print('cheguei aqui aqui')
     now = datetime.now().strftime("%Y-%m-%d")
     s3 = boto3.client("s3")
     logger.info("Salvando json no bucket..")
@@ -116,6 +117,8 @@ def main(event, context):
     resutaldo_coleta = coleta_dados(lista_categorias)
     print('iniciando funcao 4')
     print(resutaldo_coleta)
+    print('iniciando funcao 5')
     df_livros = cria_dataframe(resutaldo_coleta)
+    print('iniciando funcao 6')
     save_bucket(df_livros)
     return df_livros

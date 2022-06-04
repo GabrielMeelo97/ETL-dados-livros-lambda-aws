@@ -68,7 +68,7 @@ def request_api(url, categoria):
 def coleta_dados(categorias):
     dados_livros = []
     for categoria in categorias:
-        logger.info("Coletando os livros da categoria {categoria}")
+        logger.info(f"Coletando os livros da categoria {categoria}")
         url = 'https://books.toscrape.com/catalogue/' + categoria
         url_validada, paginas = acerta_url(url)
         cagoteria_nome = categoria[15:].split('_')[0]
@@ -117,4 +117,3 @@ def main(event, context):
     df_livros = cria_dataframe(resutaldo_coleta)
     save_bucket(df_livros)
     return df_livros
-]

@@ -105,10 +105,16 @@ def save_bucket(df_livros):
 
 
 def main(event, context):
+    print('iniciando funcao 1')
     soup = request_inicial()
+    print('iniciando funcao 2')
     categorias_full = buscar_categorias(soup)
+    print('iniciando funcao 3')
     lista_categorias = acertar_categorias(categorias_full)
+    print('iniciando funcao 4')
     resutaldo_coleta = coleta_dados(lista_categorias)
+    print('iniciando funcao 4')
     df_livros = cria_dataframe(resutaldo_coleta)
     save_bucket(df_livros)
     return df_livros
+]

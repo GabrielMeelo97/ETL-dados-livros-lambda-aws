@@ -96,14 +96,15 @@ def cria_dataframe(dados):
 
 
 def save_bucket(df_livros):
-    with NamedTemporaryFile() as tmp:
-        with open(tmp.name, "a") as f:
-            f.write(str(df_livros.to_json(orient='records')))
+    with NamedTemporaryFile(delete = False) as tmp:
+        with open(tmp.name,"a",encoding="utf-8", ) as f:
+            f.write(str(df_livros.to_csv(index= False)))
         print('cheguei aqui aqui')
         now = datetime.now().strftime("%Y-%m-%d")
-        s3 = boto3.client("s3")
+        s3 = boto3.client("s3",aws_access_key_id='AKIA27JNMMSMAK5ZV6SB', 
+                                        aws_secret_access_key='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')
         logger.info("Salvando json no bucket..")
-        s3.put_object(Body = tmp, Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.json')
+        s3.put_object(Body = tmp, Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.csv')
     return 'Arquivo inserido'
 
 

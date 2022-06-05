@@ -103,7 +103,7 @@ def save_bucket(df_livros):
         now = datetime.now().strftime("%Y-%m-%d")
         s3 = boto3.client("s3")
         logger.info("Salvando json no bucket..")
-        s3.put_object(body = tmp, bucket = 'livros-scraping', key = f'bronze/landing-date={now}/livros.json')
+        s3.put_object(Body = tmp, Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.json')
     return 'Arquivo inserido'
 
 

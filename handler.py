@@ -101,8 +101,7 @@ def save_bucket(df_livros):
     csv_buffer = StringIO()
     df_livros.to_json(csv_buffer,orient = 'records')
     now = datetime.now().strftime("%Y-%m-%d")
-    s3 = boto3.client("s3",aws_access_key_id='AKIA27JNMMSMAK5ZV6SB', 
-                                        aws_secret_access_key='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')
+    s3 = boto3.client("s3")
     logger.info("Salvando json no bucket..")
     s3.put_object(Body = csv_buffer.getvalue(), Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.csv')
     return 'Arquivo inserido'

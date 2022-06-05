@@ -6,6 +6,8 @@ import boto3
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup as bs
+from io import StringIO
+import awswrangler as wr
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -96,15 +98,13 @@ def cria_dataframe(dados):
 
 
 def save_bucket(df_livros):
-    with NamedTemporaryFile(delete = False) as tmp:
-        with open(tmp.name,"a",encoding="utf-8", ) as f:
-            f.write(str(df_livros.to_csv(index= False)))
-        print('cheguei aqui aqui')
-        now = datetime.now().strftime("%Y-%m-%d")
-        s3 = boto3.client("s3",aws_access_key_id='AKIA27JNMMSMAK5ZV6SB', 
+    csv_buffer = StringIO()
+    df_livros.to_json(csv_buffer,orient = 'records')
+    now = datetime.now().strftime("%Y-%m-%d")
+    s3 = boto3.client("s3",aws_access_key_id='AKIA27JNMMSMAK5ZV6SB', 
                                         aws_secret_access_key='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')
-        logger.info("Salvando json no bucket..")
-        s3.put_object(Body = tmp, Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.csv')
+    logger.info("Salvando json no bucket..")
+    s3.put_object(Body = csv_buffer.getvalue(), Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.csv')
     return 'Arquivo inserido'
 
 
@@ -117,3 +117,4 @@ def main(event, context):
     print('iniciando funcao 6')
     save_bucket(df_livros)
     return df_livros
+

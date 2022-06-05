@@ -7,7 +7,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup as bs
 from io import StringIO
-import awswrangler as wr
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -117,4 +117,3 @@ def main(event, context):
     print('iniciando funcao 6')
     save_bucket(df_livros)
     return df_livros
-

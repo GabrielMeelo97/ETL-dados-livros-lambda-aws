@@ -26,7 +26,7 @@ provider:
   runtime: python3.8
   stage: master
   deploymentBucket:
-    name: arn:aws:s3:::serveless-deploy1
+    name: serveless-deploy1
   environment:
     STAGE: ${opt:stage}
   iamRoleStatements:

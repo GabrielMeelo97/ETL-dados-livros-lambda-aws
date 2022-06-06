@@ -10,8 +10,8 @@
 #    docs.serverless.com
 #
 # Happy Coding!
-
-service: ingestor-livros-v7
+##a
+service: ingestor-livros-v9
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name

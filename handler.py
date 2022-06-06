@@ -98,12 +98,14 @@ def cria_dataframe(dados):
 
 
 def save_bucket(df_livros):
-    csv_buffer = StringIO()
-    df_livros.to_csv(csv_buffer)
-    now = datetime.now().strftime("%Y-%m-%d")
-    s3 = boto3.client("s3")
-    logger.info("Salvando json no bucket..")
-    s3.put_object(Body = csv_buffer.getvalue(), Bucket = 'livros-scraping', Key = f'bronze/landing-date={now}/livros.csv')
+    with NamedTemporaryFile() as tmp:
+        df_livros.to_json(tmp.name, orient='records')
+        print('cheguei aqui aqui')
+        now = datetime.now().strftime("%Y-%m-%d")
+        s3 = boto3.client("s3")
+        logger.info("Salvando json no bucket..")
+        ## salvando
+        s3.upload_file(tmp.name, 'livros-scraping', f'bronze/landing-date={now}/livros.json')
     return 'Arquivo inserido'
 
 

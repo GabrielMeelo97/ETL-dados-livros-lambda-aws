@@ -6,6 +6,8 @@ import boto3
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup as bs
+from io import StringIO
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

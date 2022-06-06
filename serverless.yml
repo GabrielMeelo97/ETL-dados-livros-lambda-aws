@@ -32,7 +32,7 @@ provider:
       “s3:GetBucketPolicy”,
       “s3:PutBucketPolicy”
       ]
-      Resource: *
+      Resource: - 'arn:aws:s3:::'
 
 
     

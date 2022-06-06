@@ -30,9 +30,10 @@ provider:
     - Effect: "Allow"
       Action: [
       “s3:GetBucketPolicy”,
-      “s3:PutBucketPolicy”
-      ]
-      Resource: - 'arn:aws:s3:::'
+      “s3:PutBucketPolicy”,
+      "s3:PutObject",
+      "s3:GetObject"]
+      Resource: "*""
 
 
     

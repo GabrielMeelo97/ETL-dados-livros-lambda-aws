@@ -26,6 +26,14 @@ provider:
   stage: master
   environment:
     STAGE: ${opt:stage}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: [
+      “s3:GetBucketPolicy”,
+      “s3:PutBucketPolicy”
+      ],
+      Resource: *
+
 
     
 functions:

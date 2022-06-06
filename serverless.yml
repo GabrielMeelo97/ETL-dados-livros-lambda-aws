@@ -25,6 +25,8 @@ provider:
   name: aws
   runtime: python3.8
   stage: master
+    deploymentBucket:
+    name: arn:aws:s3:::serveless-deploy1
   environment:
     STAGE: ${opt:stage}
   iamRoleStatements:
@@ -32,6 +34,7 @@ provider:
       Action: [
       “s3:GetBucketPolicy”,
       “s3:PutBucketPolicy”,
+      "s3:BucketPolicy"
       "s3:PutObject",
       "s3:GetObject"]
       Resource: "*"

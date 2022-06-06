@@ -31,7 +31,7 @@ provider:
       Action: [
       “s3:GetBucketPolicy”,
       “s3:PutBucketPolicy”
-      ],
+      ]
       Resource: *
 
 

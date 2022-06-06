@@ -27,8 +27,6 @@ provider:
   stage: master
   deploymentBucket:
     name: serveless-deploy1
-  environment:
-    STAGE: ${opt:stage}
   iamRoleStatements:
     - Effect: "Allow"
       Action: ["*"]

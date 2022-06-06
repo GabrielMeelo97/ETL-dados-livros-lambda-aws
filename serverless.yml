@@ -26,12 +26,6 @@ provider:
   stage: master
   environment:
     STAGE: ${opt:stage}
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:PutObject"
-      Resource: arn:aws:s3:::livros-scraping/*
-
 
     
 functions:

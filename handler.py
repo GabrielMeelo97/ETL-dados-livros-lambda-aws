@@ -99,7 +99,7 @@ def cria_dataframe(dados):
 
 def save_bucket(df_livros):
     csv_buffer = StringIO()
-    df_livros.to_json(csv_buffer,orient = 'records')
+    df_livros.to_csv(csv_buffer)
     now = datetime.now().strftime("%Y-%m-%d")
     s3 = boto3.client("s3")
     logger.info("Salvando json no bucket..")

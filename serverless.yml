@@ -31,11 +31,7 @@ provider:
     STAGE: ${opt:stage}
   iamRoleStatements:
     - Effect: "Allow"
-      Action: [
-      “s3:GetBucketPolicy”,
-      “s3:PutBucketPolicy”,
-      "s3:PutObject",
-      "s3:GetObject"]
+      Action: ["*"]
       Resource: "*"
 
 

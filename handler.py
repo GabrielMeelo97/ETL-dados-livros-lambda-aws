@@ -114,7 +114,5 @@ def main(event, context):
     lista_categorias = acertar_categorias(categorias_full)
     resutaldo_coleta = coleta_dados(lista_categorias)
     df_livros = cria_dataframe(resutaldo_coleta)
-    print('iniciando funcao 6')
     save_bucket(df_livros)
-    return df_livros
-        
+    return 'processo concluido'

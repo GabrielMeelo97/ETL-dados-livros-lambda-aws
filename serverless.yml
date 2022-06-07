@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 ##a
-service: ingestor-livros-v13
+service: ingestor-livros-v14
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name

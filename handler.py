@@ -4,23 +4,23 @@ from tempfile import NamedTemporaryFile
 
 import boto3
 import pandas as pd
+import ratelimit
 import requests
+from backoff import expo, on_exception
 from bs4 import BeautifulSoup as bs
-from io import StringIO
-
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-def request_inicial():
+def request_inicial() -> bs:
     url = 'https://books.toscrape.com/catalogue/page-1.html'
     response = requests.get(url)
     soup = bs(response.text)
     return soup
 
 
-def buscar_categorias(soup):
+def buscar_categorias(soup: bs) -> list:
     categorias_full = []
     for categoria in soup.find_all('li'):
         try:
@@ -30,7 +30,7 @@ def buscar_categorias(soup):
     return categorias_full
 
 
-def acertar_categorias(lista):
+def acertar_categorias(lista: list) -> list:
     categorias = []
     for i in lista:
         if len(i) > 27 and i[:8] == 'category':
@@ -38,7 +38,7 @@ def acertar_categorias(lista):
     return categorias
 
 
-def acerta_url(url):
+def acerta_url(url: str):
     paginas = range(1, 1000000000000000000000000000000)
     numero_paginas = 0
     for i in paginas:
@@ -54,7 +54,11 @@ def acerta_url(url):
         return url, numero_paginas
 
 
-def request_api(url, categoria):
+
+@on_exception(expo, ratelimit.exception.RateLimitException, max_tries=15)
+@ratelimit.limits(calls=30, period=30)
+@on_exception(expo, requests.exceptions.HTTPError, max_tries=10)
+def request_api(url: str, categoria: str) -> list:
     livro_response = requests.get(url)
     livros = bs(livro_response.text)
     dados = []
@@ -67,7 +71,7 @@ def request_api(url, categoria):
     return dados
 
 
-def coleta_dados(categorias):
+def coleta_dados(categorias: list) -> list:
     dados_livros = []
     for categoria in categorias:
         logger.info(f"Coletando os livros da categoria {categoria}")

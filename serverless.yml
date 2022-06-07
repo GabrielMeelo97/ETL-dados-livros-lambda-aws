@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 ##a
-service: ingestor-livros-v14
+service: ingestor-livros-v15
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -27,7 +27,7 @@ provider:
   stage: master
   iamRoleStatements:
     - Effect: "Allow"
-      Action: ["*"]
+      Action: "*"
       Resource: "*"
 
     

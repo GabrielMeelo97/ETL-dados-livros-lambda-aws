@@ -99,7 +99,7 @@ def cria_dataframe(dados):
 
 def save_bucket(df_livros):
     with NamedTemporaryFile() as tmp:
-        df_livros.csv(tmp.name)
+        df_livros.to_csv(tmp.name,index = False)
         print('cheguei aqui aqui')
         now = datetime.now().strftime("%Y-%m-%d")
         s3 = boto3.client("s3")
@@ -117,3 +117,4 @@ def main(event, context):
     print('iniciando funcao 6')
     save_bucket(df_livros)
     return df_livros
+        

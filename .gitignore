@@ -19,4 +19,5 @@ var/
 # Serverless directories
 .serverless
 .venv
-
+# Vscode
+.vscode

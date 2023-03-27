@@ -1,4 +1,8 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-'make.exe' n�o � reconhecido como um comando interno
-ou externo, um programa oper�vel ou um arquivo em lotes.
-
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/gabriel/Desktop/ETL-dados-livros-lambda-aws'
+pip install poetry
+poetry install
+npm install -g serverless && npm install serverless-python-requirements serverless-pseudo-parameters
+npm install --save-dev serverless-plugin-warmup serverless-prune-plugin
+make: Leaving directory '/home/gabriel/Desktop/ETL-dados-livros-lambda-aws'
+ 

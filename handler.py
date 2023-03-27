@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup as bs
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+bucket_name = 'bronze'
 
 def request_inicial() -> bs:
     url = 'https://books.toscrape.com/catalogue/page-1.html'
@@ -104,11 +105,10 @@ def cria_dataframe(dados):
 def save_bucket(df_livros):
     with NamedTemporaryFile() as tmp:
         df_livros.to_csv(tmp.name, index=False)
-        print('cheguei aqui aqui')
         now = datetime.now().strftime("%Y-%m-%d")
         s3 = boto3.client("s3")
         logger.info("Salvando json no bucket..")
-        s3.upload_file(tmp.name, 'dados-livros', f'bronze/landing-date={now}/livros.csv')
+        s3.upload_file(tmp.name, 'dados-livros', f'{bucket_name}/landing-date={now}/livros.csv')
     return 'Arquivo inserido'
 
 

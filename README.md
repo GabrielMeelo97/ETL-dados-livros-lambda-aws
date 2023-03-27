@@ -35,6 +35,4 @@ Além disso, você também precisará de uma conta na AWS com as permissões nec
    ```bash
    sls deploy
 
-7. Certifique-se de ter configurado corretamente as variáveis AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY e AWS_REGION no arquivo serverless.yml.
-
-9. Por fim, você pode configurar um trigger para a função Lambda que execute o script periodicamente, conforme necessário. Por exemplo, você pode criar um evento CloudWatch que execute a função Lambda a cada 24 horas.
+7. Por fim, você pode configurar um trigger para a função Lambda que execute o script periodicamente, conforme necessário. Por exemplo, você pode criar um evento CloudWatch que execute a função Lambda a cada 24 horas.
